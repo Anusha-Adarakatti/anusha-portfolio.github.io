@@ -388,5 +388,26 @@ footer.footer {
     filter: brightness(1.2);
   }
 
+.icon-link img {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.icon-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #5a189a;
+  font-weight: 500;
+}
+
+.icon-link span {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+
   
   
