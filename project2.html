@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HSL Bytecode | Anusha Adarakatti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-orange: #FF9900;
+      --dark-header: #131921;
+      --light-bg: #232F3E;
+      --medium-gray: #37475A;
+      --light-gray: #EAEDED;
+      --primary-blue: #146EB4;
+      --accent-yellow: #F2CA66;
+      --text-dark: #0F1111;
+      --text-light: #FFFFFF;
+      --text-gray: #565959;
+      --card-shadow: 0 2px 5px 0 rgba(15,17,17,.3);
+      --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background-color: var(--dark-header);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      color: var(--text-light);
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo::before {
+      content: "";
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-color: var(--primary-orange);
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links li a {
+      color: var(--text-light);
+      font-weight: 500;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+
+    .nav-links li a:hover {
+      color: var(--accent-yellow);
+    }
+
+    .nav-links li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-orange);
+      transition: var(--transition);
+    }
+
+    .nav-links li a:hover::after {
+      width: 100%;
+    }
+
+    /* Project Header */
+    .project-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .project-title {
+      font-size: 2.5rem;
+      color: var(--dark-header);
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .project-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: var(--primary-orange);
+      border-radius: 2px;
+    }
+
+    .project-subtitle {
+      font-size: 1.2rem;
+      color: var(--primary-blue);
+      margin-bottom: 1rem;
+    }
+
+    .project-tagline {
+      color: var(--text-gray);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Project Sections */
+    .section {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--primary-orange);
+      transition: var(--transition);
+    }
+
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: var(--primary-blue);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .section-title i {
+      margin-right: 10px;
+      color: var(--primary-orange);
+    }
+
+    .section-content {
+      color: var(--text-gray);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+    }
+
+    .feature-list li {
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+      position: relative;
+    }
+
+    .feature-list li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: var(--primary-orange);
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .tech-item {
+      background-color: var(--light-gray);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--primary-blue);
+    }
+
+    /* Buttons */
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.8rem 1.8rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-orange);
+      color: var(--text-dark);
+      box-shadow: var(--card-shadow);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-yellow);
+      transform: translateY(-3px);
+    }
+
+    .btn-secondary {
+      background-color: var(--primary-blue);
+      color: white;
+      box-shadow: var(--card-shadow);
+    }
+
+    .btn-secondary:hover {
+      background-color: #0F5B9E;
+      transform: translateY(-3px);
+    }
+
+    /* Footer */
+    .connect-footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      background-color: var(--dark-header);
+      color: var(--text-light);
+      margin-top: 4rem;
+    }
+
+    .footer-heading {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-subtext {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .social-footer-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-footer-icons a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background-color: var(--medium-gray);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .social-footer-icons a:hover {
+      background-color: var(--primary-orange);
+      transform: translateY(-3px);
+    }
+
+    .social-footer-icons img {
+      width: 20px;
+      height: 20px;
+      filter: brightness(0) invert(1);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .project-title {
+        font-size: 2rem;
+      }
+
+      .buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="nav-container">
+      <h1 class="logo">Anusha Adarakatti</h1>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About Me</a></li>
+          <li><a href="index.html#projects">Projects</a></li>
+          <li><a href="index.html#domain">Domain</a></li>
+          <li><a href="#connect">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="project-header">
+      <h1 class="project-title">HSL Bytecode Analysis & Execution</h1>
+      <p class="project-subtitle">Hardware Control System for Embedded Platforms</p>
+      <p class="project-tagline">A comprehensive toolset for analyzing and executing HSL (Hardware Sequence Language) bytecode on embedded hardware platforms like Jetson and Raspberry Pi.</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-info-circle"></i> Project Overview</h2>
+      <div class="section-content">
+        <p>The HSL ("Hardware Sequence Language") system enables precise control of hardware components through compiled bytecode instructions. This project provides two key components:</p>
+        <ul class="feature-list">
+          <li><strong>Bytecode Analyzer:</strong> Processes and analyzes HSL bytecode to provide detailed statistics and optimization opportunities</li>
+          <li><strong>Execution Engine:</strong> Runs compiled HSL bytecode on target hardware to control I2C and GPIO devices</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-star"></i> Key Features</h2>
+      <div class="section-content">
+        <ul class="feature-list">
+          <li><strong>Comprehensive Bytecode Analysis:</strong> Detailed breakdown of instruction types, memory usage, and operation statistics</li>
+          <li><strong>Hardware Execution:</strong> Direct control of I2C and GPIO devices through compiled HSL programs</li>
+          <li><strong>Optimization Detection:</strong> Identifies opportunities to combine operations and reduce execution time</li>
+          <li><strong>Cross-Platform Support:</strong> Works on both x86 development systems and ARM-based embedded platforms</li>
+          <li><strong>Validation Tools:</strong> Includes simulation mode to test programs before hardware deployment</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-laptop-code"></i> Development Environment</h2>
+      <div class="section-content">
+        <h3>Development System</h3>
+        <ul class="feature-list">
+          <li>x86 system running Ubuntu 18.04 or higher</li>
+          <li>HSL compiler and playback library</li>
+        </ul>
+        
+        <h3>Target Hardware</h3>
+        <ul class="feature-list">
+          <li>NVIDIA Jetson platforms</li>
+          <li>Raspberry Pi with I2C/GPIO devices</li>
+        </ul>
+        
+        <div class="tech-stack">
+          <span class="tech-item">C++</span>
+          <span class="tech-item">Python</span>
+          <span class="tech-item">Shell Scripting</span>
+          <span class="tech-item">I2C-tools</span>
+          <span class="tech-item">WiringPi</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-project-diagram"></i> System Architecture</h2>
+      <div class="section-content">
+        <h3>Input Flow</h3>
+        <ul class="feature-list">
+          <li>HSL source code → Compiled using HSL Compiler</li>
+          <li>Compiled bytecode → Analyzed by Bytecode Analyzer</li>
+          <li>Validated bytecode → Executed on target hardware</li>
+        </ul>
+        
+        <h3>Output Artifacts</h3>
+        <ul class="feature-list">
+          <li><strong>Analysis Reports:</strong> Detailed statistics and optimization suggestions</li>
+          <li><strong>Execution Logs:</strong> Hardware-level operation records</li>
+          <li><strong>Validation Outputs:</strong> Simulation results before deployment</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-tasks"></i> Deliverables</h2>
+      <div class="section-content">
+        <ul class="feature-list">
+          <li><strong>Bytecode Analysis Tool:</strong> Provides detailed statistics and optimization flags</li>
+          <li><strong>Execution Infrastructure:</strong> Runs HSL programs on target hardware</li>
+          <li><strong>Sample HSL Programs:</strong> Demonstration scripts for common hardware control tasks</li>
+          <li><strong>Documentation:</strong> Complete system specifications and usage guides</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-lightbulb"></i> Use Cases</h2>
+      <div class="section-content">
+        <ul class="feature-list">
+          <li><strong>Robotics:</strong> Precise timing of sensor reads and actuator movements</li>
+          <li><strong>Industrial Automation:</strong> Control sequences for manufacturing equipment</li>
+          <li><strong>Embedded Prototyping:</strong> Rapid development of hardware control logic</li>
+          <li><strong>Educational Tools:</strong> Teaching hardware programming concepts</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <a href="https://github.com/yourusername/hsl-bytecode-tool" class="btn btn-primary" target="_blank">
+        <i class="fab fa-github"></i> View Source Code
+      </a>
+      <a href="index.html#projects" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Projects
+      </a>
+    </div>
+  </div>
+
+  <footer class="connect-footer" id="connect">
+    <h2 class="footer-heading">Let's Connect</h2>
+    <p class="footer-subtext">Feel free to reach out for collaborations or just a friendly hello 😊</p>
+    <div class="social-footer-icons">
+      <a href="mailto:your.email@example.com" target="_blank" aria-label="Email">
+        <img src="https://img.icons8.com/ios-filled/30/000000/email-open.png" alt="Email">
+      </a>
+      <a href="https://www.linkedin.com/in/yourprofile" target="_blank" aria-label="LinkedIn">
+        <img src="https://img.icons8.com/ios-filled/30/000000/linkedin.png" alt="LinkedIn">
+      </a>
+      <a href="https://github.com/yourprofile" target="_blank" aria-label="GitHub">
+        <img src="https://img.icons8.com/ios-filled/30/000000/github.png" alt="GitHub">
+      </a>
+      <a href="https://twitter.com/yourprofile" target="_blank" aria-label="Twitter">
+        <img src="https://img.icons8.com/ios-filled/30/000000/twitter.png" alt="Twitter">
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>
