@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QuickEats | Anusha Adarakatti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-orange: #FF9900;
+      --dark-header: #131921;
+      --light-bg: #232F3E;
+      --medium-gray: #37475A;
+      --light-gray: #EAEDED;
+      --primary-blue: #146EB4;
+      --accent-yellow: #F2CA66;
+      --text-dark: #0F1111;
+      --text-light: #FFFFFF;
+      --text-gray: #565959;
+      --card-shadow: 0 2px 5px 0 rgba(15,17,17,.3);
+      --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background-color: var(--dark-header);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      color: var(--text-light);
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo::before {
+      content: "";
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-color: var(--primary-orange);
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links li a {
+      color: var(--text-light);
+      font-weight: 500;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+
+    .nav-links li a:hover {
+      color: var(--accent-yellow);
+    }
+
+    .nav-links li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-orange);
+      transition: var(--transition);
+    }
+
+    .nav-links li a:hover::after {
+      width: 100%;
+    }
+
+    /* Project Header */
+    .project-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .project-title {
+      font-size: 2.5rem;
+      color: var(--dark-header);
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .project-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: var(--primary-orange);
+      border-radius: 2px;
+    }
+
+    .project-subtitle {
+      font-size: 1.2rem;
+      color: var(--primary-blue);
+      margin-bottom: 1rem;
+    }
+
+    .project-tagline {
+      color: var(--text-gray);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Project Sections */
+    .section {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--primary-orange);
+      transition: var(--transition);
+    }
+
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: var(--primary-blue);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .section-title i {
+      margin-right: 10px;
+      color: var(--primary-orange);
+    }
+
+    .section-content {
+      color: var(--text-gray);
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+    }
+
+    .feature-list li {
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+      position: relative;
+    }
+
+    .feature-list li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: var(--primary-orange);
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .tech-item {
+      background-color: var(--light-gray);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--primary-blue);
+    }
+
+    /* Carousel */
+    .carousel-container {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: auto;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .carousel-images {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-images img {
+      width: 100%;
+      max-height: 450px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255,255,255,0.8);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dark);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: var(--transition);
+    }
+
+    .carousel-btn:hover {
+      background-color: white;
+      color: var(--primary-orange);
+    }
+
+    .carousel-btn.prev {
+      left: 15px;
+    }
+
+    .carousel-btn.next {
+      right: 15px;
+    }
+
+    /* Buttons */
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.8rem 1.8rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-orange);
+      color: var(--text-dark);
+      box-shadow: var(--card-shadow);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-yellow);
+      transform: translateY(-3px);
+    }
+
+    .btn-secondary {
+      background-color: var(--primary-blue);
+      color: white;
+      box-shadow: var(--card-shadow);
+    }
+
+    .btn-secondary:hover {
+      background-color: #0F5B9E;
+      transform: translateY(-3px);
+    }
+
+    /* Footer */
+    .connect-footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      background-color: var(--dark-header);
+      color: var(--text-light);
+      margin-top: 4rem;
+    }
+
+    .footer-heading {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-subtext {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .social-footer-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-footer-icons a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background-color: var(--medium-gray);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .social-footer-icons a:hover {
+      background-color: var(--primary-orange);
+      transform: translateY(-3px);
+    }
+
+    .social-footer-icons img {
+      width: 20px;
+      height: 20px;
+      filter: brightness(0) invert(1);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .project-title {
+        font-size: 2rem;
+      }
+
+      .buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="nav-container">
+      <h1 class="logo">Anusha Adarakatti</h1>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About Me</a></li>
+          <li><a href="index.html#projects">Projects</a></li>
+          <li><a href="index.html#domain">Domain</a></li>
+          <li><a href="#connect">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="project-header">
+      <h1 class="project-title">QuickEats Food Delivery Platform</h1>
+      <p class="project-subtitle">A MERN Stack Solution for Modern Food Ordering</p>
+      <p class="project-tagline">QuickEats is a modern, responsive food booking and ordering platform designed to deliver a seamless dining experience. Whether you're craving a meal at home or planning to dine out, QuickEats connects you with the best restaurants and helps you order your favorite dishes effortlessly.</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-info-circle"></i> Introduction</h2>
+      <div class="section-content">
+        <p>QuickEats is a comprehensive full-stack web application designed to enhance the online food ordering experience. Built on the MERN stack (MongoDB, Express.js, React.js, Node.js), the platform offers a user-friendly interface for customers to explore restaurants and menus, place orders, and manage profiles. For administrators, QuickEats provides powerful tools to manage orders, menu items, and customer interactions seamlessly.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-star"></i> Client Features</h2>
+      <div class="section-content">
+        <ul class="feature-list">
+          <li><strong>Home Page:</strong> Discover featured restaurants, popular dishes, and exciting offers curated just for you.</li>
+          <li><strong>Menu:</strong> Browse through extensive menus and find dishes tailored to your taste.</li>
+          <li><strong>Filters:</strong> Quickly search for specific restaurants, cuisines, or dishes using advanced filters.</li>
+          <li><strong>Contact Us:</strong> Reach out to our support team or leave feedback with ease.</li>
+          <li><strong>Cart:</strong> Keep track of your selected dishes and manage your orders efficiently.</li>
+          <li><strong>Checkout:</strong> Complete your order securely and effortlessly with streamlined payment options.</li>
+          <li><strong>Login/Signup:</strong> Enjoy a secure, personalized experience with straightforward account authentication.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-tools"></i> Admin Features</h2>
+      <div class="section-content">
+        <ul class="feature-list">
+          <li><strong>Manage Menu:</strong> Add, update, or delete menu items easily to keep the menu fresh and up-to-date.</li>
+          <li><strong>View Orders:</strong> Monitor ongoing orders and access a detailed history of past transactions.</li>
+          <li><strong>Analytics Dashboard:</strong> Gain valuable insights into sales performance and customer behavior.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-code"></i> Technologies Used</h2>
+      <div class="section-content">
+        <h3>Frontend</h3>
+        <ul class="feature-list">
+          <li><strong>React.js:</strong> For building the user interface.</li>
+          <li><strong>CSS:</strong> For responsive and modern UI design.</li>
+        </ul>
+        
+        <h3>Backend</h3>
+        <ul class="feature-list">
+          <li><strong>Node.js:</strong> For server-side scripting.</li>
+          <li><strong>Express.js:</strong> For building RESTful APIs.</li>
+        </ul>
+        
+        <h3>Database</h3>
+        <ul class="feature-list">
+          <li><strong>MongoDB:</strong> For storing user, restaurant, and order data.</li>
+        </ul>
+        
+        <h3>Authentication</h3>
+        <ul class="feature-list">
+          <li><strong>JWT (JSON Web Tokens):</strong> For secure user authentication.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Carousel Section -->
+    <div class="section carousel-container">
+      <h2 class="section-title"><i class="fas fa-images"></i> Platform Screenshots</h2>
+      <div class="carousel">
+        <button class="carousel-btn prev"><i class="fas fa-chevron-left"></i></button>
+        <div class="carousel-images">
+          <img src="https://github.com/bPavan16/QuickEats/raw/main/images/image_(1).png" alt="QuickEats Homepage" />
+          <img src="https://github.com/bPavan16/QuickEats/raw/main/images/image_(3).png" alt="Restaurant Menu" />
+          <img src="https://github.com/bPavan16/QuickEats/raw/main/images/image_(8).png" alt="Order Tracking" />
+          <img src="https://github.com/bPavan16/QuickEats/raw/main/images/image_(12).png" alt="Admin Dashboard" />
+        </div>
+        <button class="carousel-btn next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <a href="https://github.com/Anusha-Adarakatti/QuickEats" class="btn btn-primary" target="_blank">
+        <i class="fab fa-github"></i> View Source Code
+      </a>
+      <a href="index.html#projects" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Projects
+      </a>
+    </div>
+  </div>
+
+  <footer class="connect-footer" id="connect">
+    <h2 class="footer-heading">Let's Connect</h2>
+    <p class="footer-subtext">Feel free to reach out for collaborations or just a friendly hello 😊</p>
+    <div class="social-footer-icons">
+      <a href="mailto:anushaadarakatti47@gmail.com" target="_blank" aria-label="Email">
+        <img src="https://img.icons8.com/ios-filled/30/000000/email-open.png" alt="Email">
+      </a>
+      <a href="https://www.linkedin.com/in/anusha-adarakatti-45236b26a" target="_blank" aria-label="LinkedIn">
+        <img src="https://img.icons8.com/ios-filled/30/000000/linkedin.png" alt="LinkedIn">
+      </a>
+      <a href="https://github.com/Anusha-Adarakatti" target="_blank" aria-label="GitHub">
+        <img src="https://img.icons8.com/ios-filled/30/000000/github.png" alt="GitHub">
+      </a>
+      <a href="https://twitter.com/yourprofile" target="_blank" aria-label="Twitter">
+        <img src="https://img.icons8.com/ios-filled/30/000000/twitter.png" alt="Twitter">
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    const carousel = document.querySelector('.carousel-images');
+    const images = document.querySelectorAll('.carousel-images img');
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    const nextBtn = document.querySelector('.carousel-btn.next');
+
+    let index = 0;
+
+    function updateCarousel() {
+      carousel.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    function showNextImage() {
+      index = (index + 1) % images.length;
+      updateCarousel();
+    }
+
+    function showPrevImage() {
+      index = (index - 1 + images.length) % images.length;
+      updateCarousel();
+    }
+
+    nextBtn.addEventListener('click', showNextImage);
+    prevBtn.addEventListener('click', showPrevImage);
+
+    // Auto-slide every 5 seconds
+    setInterval(showNextImage, 5000);
+
+    // Initialize carousel
+    updateCarousel();
+  </script>
+</body>
+</html>
